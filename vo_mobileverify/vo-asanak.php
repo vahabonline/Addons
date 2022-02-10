@@ -1,4 +1,5 @@
 <?php
+//in file barqaye asanak hast
 function vo_sendSms($params){
 	$curl = curl_init();
     curl_setopt_array($curl, array(
