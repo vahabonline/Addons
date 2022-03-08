@@ -5,7 +5,7 @@
  * Mobile 09374655385 - 09118689448
  * Mail info@vahabonline.ir
  * -----
- * File: vo-ippanel.php
+ * File: vo-magfa.php
  * Project: vo-senders
  * Version: <<projectversion>>
  * Created Date: Thursday May 7th 2020
@@ -21,7 +21,7 @@ function userdomain(){
 	return $domain;
 }
 // اطلاعات ارسال کننده
-function info_ippanel(){
+function info_magfa(){
     return array(
         "name" => "Magfa",
         "username_label" => "نام کاربری",
@@ -33,12 +33,12 @@ function info_ippanel(){
 }
 
 // وضعیت اتصال
-function status_ippanel($user,$pass,$sender){
+function status_magfa($user,$pass,$sender){
 	return true;
 }
 
 // نمایش اعتبار پنل
-function balance_ippanel($username,$password,$sender){
+function balance_magfa($username,$password,$sender){
 	$domain = userdomain();
 	$url = 'https://sms.magfa.com/api/http/sms/v2/balance';
 	$ch = curl_init($url);
@@ -51,7 +51,7 @@ function balance_ippanel($username,$password,$sender){
 }
 
 // ارسال عادی
-function sending_default_ippanel($username,$password,$sender,$to,$txt){
+function sending_default_magfa($username,$password,$sender,$to,$txt){
 	$domain = userdomain();
 	$url = 'https://sms.magfa.com/api/soap/sms/v1/server?wsdl';
 	$options = [
@@ -75,6 +75,6 @@ function sending_default_ippanel($username,$password,$sender,$to,$txt){
 }
 
 // ارسال به صورت پترن
-function sending_pattern_ippanel($username,$password,$sender,$to,$pattern_code,$msg){
+function sending_pattern_magfa($username,$password,$sender,$to,$pattern_code,$msg){
 	return false;
 }
