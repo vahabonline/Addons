@@ -1,5 +1,4 @@
 <?php
-//in file barqaye asanak hast
 function vo_sendSms($params){
 	$curl = curl_init();
     curl_setopt_array($curl, array(
@@ -12,7 +11,7 @@ function vo_sendSms($params){
         CURLOPT_POSTFIELDS => array(
             'username' => $params['username'],
             'password' => $params['password'],
-            'Source' => $params['mobile'],
+            'Source' => $params['usernumber'],
             'Message' => $params['message'],
             'destination' => $params['formnumber'],
         ),
