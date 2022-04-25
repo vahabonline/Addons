@@ -11,9 +11,9 @@ function vo_sendSms($params){
         CURLOPT_POSTFIELDS => array(
             'username' => $params['username'],
             'password' => $params['password'],
-            'Source' => '0'.$params['usernumber'],
+            'Source' => $params['formnumber'],
             'Message' => $params['message'],
-            'destination' => $params['formnumber'],
+            'destination' => '0'.$params['usernumber'],
         ),
     ));
 
