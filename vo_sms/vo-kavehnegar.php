@@ -1,7 +1,7 @@
 <?php
 function info_kavehnegar(){
     return array(
-        "name" => "IpPanel",
+        "name" => "KavehNegar",
         "username_label" => "توکن",
         "password_label" => false,
 		"sendernumber_label" => "شماره ارسال کننده",
