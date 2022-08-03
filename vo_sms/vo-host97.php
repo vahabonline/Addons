@@ -11,7 +11,7 @@ function info_host97(){
 }
 
 function status_host97(){
-    
+    return true;
 }
 
 function balance_host97(){
