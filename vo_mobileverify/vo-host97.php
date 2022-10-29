@@ -14,5 +14,9 @@ function vo_sendSms($params){
   curl_setopt($ch, CURLOPT_POST, true);
   curl_setopt($ch, CURLOPT_POSTFIELDS,   'api_key='.$apiKey.'&receiver_number='.$usermobiles.'&note_arr[]='.$msg.'&sender_number='.$sender);
   $results2 = curl_exec($ch);
+  $json = json_decode($results2);
+  if($json->result == 'true'){
+   return 'success';
+  }
   return $results2;
 }
