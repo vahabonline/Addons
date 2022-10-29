@@ -4,7 +4,7 @@ function vo_sendSms($params){
   if(empty($apiKey)){
     $apiKey = $params['password'];
   }
-  $usermobiles = $params['mobile'];
+  $usermobiles = $params['usernumber'];
   $msg = $params['message'];
   $sender = $params['formnumber'];
   $ch = curl_init();
