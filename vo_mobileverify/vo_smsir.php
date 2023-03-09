@@ -4,14 +4,14 @@
         $apikey = $params['username'];
         $secKey = $params['password'];
         $from = $params['formnumber'];
-        $to = $params['usernumber'];
-        $msg = $params['message'];
-        return sendMessage($apikey,$secKey,$from,$to, $msg);
+        $to[] = $params['usernumber'];
+        $msg[] = $params['message'];
+        return VO__P_sendMessage($apikey,$secKey,$from,$to,$msg);
     }
 
-    function sendMessage($apiKey,$secKey,$fromNumber,$MobileNumbers, $Messages, $SendDateTime = '')
+    function VO__P_sendMessage($apiKey,$secKey,$fromNumber,$MobileNumbers, $Messages, $SendDateTime = '')
     {
-        $token = V_getToken($apiKey, $secKey);
+        $token = VO__P_getToken($apiKey, $secKey);
         $APIURL = "https://ws.sms.ir/";
         if ($token != false) {
             $postData = array(
@@ -23,23 +23,27 @@
             );
 
             $url = $APIURL."api/MessageSend";
-            $SendMessage = V_execute($postData, $url, $token);
+            $SendMessage = VO__P_execute($postData, $url, $token);
             $object = json_decode($SendMessage);
 
             $result = false;
             if (is_object($object)) {
-                $result = $object->Message;
+                $result = $object->IsSuccessful;
             } else {
                 $result = false;
             }
         } else {
             $result = false;
         }
+		
+		if($result == true){
+			return 'success';
+		}
         return $result;
     }
 
 
-    function V_getToken($apiKey,$SecretKey)
+    function VO__P_getToken($apiKey,$SecretKey)
     {
         $APIURL = "https://ws.sms.ir/";
         $postData = array(
@@ -83,7 +87,7 @@
 
 
 
-    function V_execute($postData, $url, $token)
+    function VO__P_execute($postData, $url, $token)
     {
 
         $postString = json_encode($postData);
