@@ -1,5 +1,5 @@
 <?php
-function SendMsg($params){
+function vo_sms_sending($params){
     $msg = $parameters['messageContent'] = str_replace('{code}',$params['smsCode'],$params['message']);
     curl_setopt_array($curl, array(
     CURLOPT_URL => 'https://allSMSSend.ir/api/apicore/SendFarapayamak',
