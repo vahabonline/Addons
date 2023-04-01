@@ -53,15 +53,15 @@ function balance_hostiran($user,$pass,$sender){
 
 // ارسال عادی
 function sending_default_hostiran($usr,$pas,$frm,$to,$txt){
-	$to[] = $to;
+	$to = array($to);
 	try {
 		$client = new SoapClient('http://api.payamak-panel.com/post/send.asmx?wsdl', array('encoding'=>'UTF-8'));
 	 	$parameters['username'] = $usr;
 	    	$parameters['password'] = $pas;
 	    	$parameters['from'] = $frm;
 	    	$parameters['to'] = $to;
-	    	$parameters['text'] ="سلام";
-	    	$parameters['isflash'] = $txt;
+	    	$parameters['text'] = $txt;
+	    	$parameters['isflash'] = false;
 	    	$parameters['udh'] = "";
 	    	$parameters['recId'] = array(0);
 		$parameters['status'] = 0x0;
