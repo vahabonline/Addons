@@ -16,7 +16,7 @@
  * -----
  * Copyright (c) 2020 Your Company
  */
-
+ini_set("soap.wsdl_cache_enabled", "0");
 
 // اطلاعات ارسال کننده
 function info_hostiran(){
@@ -24,15 +24,19 @@ function info_hostiran(){
         "name" => "hostiran",
         "username_label" => "نام کاربری",
         "password_label" => "رمز عبور",
-		"sendernumber_label" => "شماره ارسال کننده",
-		"pattern_label" => 'شماره پترن',
-        "pattern" => true,
+	"sendernumber_label" => "شماره ارسال کننده",
+	"pattern_label" => 'شماره پترن',
+        "pattern" => false,
     );
 }
 
 // وضعیت اتصال
 function status_hostiran($user,$pass,$sender){
-	if($res_code == '0'){
+	$sms_client = new SoapClient('http://api.payamak-panel.com/post/Send.asmx?wsdl', array('encoding'=>'UTF-8'));
+	$parameters['username'] = $user;
+	$parameters['password'] = $pass;
+	$res = $sms_client->GetCredit($parameters)->GetCreditResult;
+	if($res > 0){
 		return true;
 	}else{
 		return false;
@@ -41,12 +45,31 @@ function status_hostiran($user,$pass,$sender){
 
 // نمایش اعتبار پنل
 function balance_hostiran($user,$pass,$sender){
-	return false;
+	$sms_client = new SoapClient('http://api.payamak-panel.com/post/Send.asmx?wsdl', array('encoding'=>'UTF-8'));
+	$parameters['username'] = $user;
+	$parameters['password'] = $pass;
+	return $sms_client->GetCredit($parameters)->GetCreditResult;
 }
 
 // ارسال عادی
-function sending_default_hostiran($field1,$field2,$field3,$to,$txt){
-		return false;
+function sending_default_hostiran($usr,$pas,$frm,$to,$txt){
+	$to[] = $to;
+	try {
+		$client = new SoapClient('http://api.payamak-panel.com/post/send.asmx?wsdl', array('encoding'=>'UTF-8'));
+	 	$parameters['username'] = $usr;
+	    	$parameters['password'] = $pas;
+	    	$parameters['from'] = $frm;
+	    	$parameters['to'] = $to;
+	    	$parameters['text'] ="سلام";
+	    	$parameters['isflash'] = $txt;
+	    	$parameters['udh'] = "";
+	    	$parameters['recId'] = array(0);
+		$parameters['status'] = 0x0;
+		$client->GetCredit(array("username"=>"wsdemo","password"=>"wsdemo"))->GetCreditResult;
+		return $client->SendSms($parameters)->SendSmsResult;
+	 } catch (SoapFault $ex) {
+	    	return $ex->faultstring;
+	}
 }
 
 // ارسال به صورت پترن
