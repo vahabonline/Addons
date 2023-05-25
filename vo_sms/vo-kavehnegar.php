@@ -76,5 +76,5 @@ function sending_default_kavehnegar($apiKey,$pass,$fromnumber,$usermobile,$messa
 
 // ارسال به صورت پترن
 function sending_pattern_kavehnegar($username,$password,$sender,$to,$pattern_code,$msg){
-	return false
+	return false;
 }
