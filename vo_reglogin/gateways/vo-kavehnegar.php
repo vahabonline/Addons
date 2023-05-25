@@ -2,6 +2,7 @@
 function vo_sendSms($params){
     $username = $params['username'];
 	$password = $params['password'];
+	$token = $params['token'];
 	$sendernumber = $params['sendernumber'];
 	$usermobile = $params['usermobile'];
 	$message = urlencode($params['message']);
@@ -9,7 +10,7 @@ function vo_sendSms($params){
 
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
-	CURLOPT_URL => "http://api.kavenegar.com/v1/{$password}/sms/send.json",
+	CURLOPT_URL => "http://api.kavenegar.com/v1/{$token}/sms/send.json",
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_ENCODING => '',
 	CURLOPT_MAXREDIRS => 10,
