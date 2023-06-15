@@ -1,14 +1,24 @@
 <?php
 
 function send_sms($params){
-    ini_set("soap.wsdl_cache_enabled", "0");
     try {
 	    
 	$from = $params['sendnumber'];
-	$to = $params['tonumbers'];
+	$to = json_encode($params['tonumbers']);
 	$message = $params['message'];
 	$username = $params['username'];
 	$password = $params['password'];
+	$params1 = '{
+	    "from": "'.$from.'",
+	    "recipients": '.$to.',
+	    "message": "'.$message.'",
+	    "type": 0
+	}';
+	$params2 = array(
+	    'username: '.$username,
+	    'password: '.$password,
+	    'Content-Type: application/json'
+	  );
 	    
     	$curl = curl_init();
 	curl_setopt_array($curl, array(
@@ -20,25 +30,18 @@ function send_sms($params){
 	  CURLOPT_FOLLOWLOCATION => true,
 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	  CURLOPT_CUSTOMREQUEST => 'POST',
-	  CURLOPT_POSTFIELDS =>'{
-	    "from": "'.$from.'",
-	    "recipients": [
-		"'.$to.'"
-	    ],
-	    "message": "'.$message.'",
-	    "type": 0
-	}',
-	  CURLOPT_HTTPHEADER => array(
-	    'username: '.$username,
-	    'password: '.$password,
-	    'Content-Type: application/json'
-	  ),
+	  CURLOPT_POSTFIELDS =>$params1,
+	  CURLOPT_HTTPHEADER => $params2
 	));
 
 	$response = curl_exec($curl);
 
 	curl_close($curl);
-	return $response;
+	return json_encode([
+	    'Res' => $response,
+	    'Params1' => $params1,
+	    'Params2' => $params2
+	]);
 		
     } catch (SoapFault $ex) {
         return $ex->faultstring;
