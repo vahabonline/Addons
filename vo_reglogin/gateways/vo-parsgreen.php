@@ -11,9 +11,16 @@ function vo_sendSms($params){
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-		$result = curl_exec($ch);
+		$res = curl_exec($ch);
 		curl_close($ch);
-		return $result;
+		$result = explode(";",$res);
+		$usermobile = $result[0];
+		$status = $result[1];
+		$rescode = $result[2];
+		if($status == '0'){
+		    return true;
+		}
+		return $res;
 	}
 	catch (SoapFault $ex) 
 	{
