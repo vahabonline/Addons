@@ -144,7 +144,8 @@ class SmsIR_UltraFastSend
     }
 }
 
-vo_sendSms($params){
+function vo_sendSms($params){
+    try {
   $json = html_entity_decode($params['message']);
       $json = json_decode($json);
       $codename = $json->codename;
@@ -168,6 +169,9 @@ vo_sendSms($params){
       $SmsIR_UltraFastSend = new SmsIR_UltraFastSend($APIKey, $SecretKey, $APIURL);
       $UltraFastSend = $SmsIR_UltraFastSend->ultraFastSend($data);
       return $UltraFastSend;
+    catch(Exception $e) {
+      return 'Message: ' .$e->getMessage();
+    }
 }
 
 ?> 
