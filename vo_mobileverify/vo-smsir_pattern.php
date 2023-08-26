@@ -169,7 +169,7 @@ function vo_sendSms($params){
       $SmsIR_UltraFastSend = new SmsIR_UltraFastSend($APIKey, $SecretKey, $APIURL);
       $UltraFastSend = $SmsIR_UltraFastSend->ultraFastSend($data);
       return $UltraFastSend;
-    catch(Exception $e) {
+    }catch(Exception $e) {
       return 'Message: ' .$e->getMessage();
     }
 }
