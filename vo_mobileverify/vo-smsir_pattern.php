@@ -146,15 +146,15 @@ class SmsIR_UltraFastSend
 
 function vo_sendSms($params){
     try {
-  $json = html_entity_decode($params['message']);
-      $json = json_decode($json);
-      $codename = $json->codename;
-    	$pattern_code = $json->patterncode;
+          $json = html_entity_decode($params['message']);
+          $json = json_decode($json);
+          $codename = $json->codename;
+            $pattern_code = $json->patterncode;
     	$actcode = $json->activecode;
     	$usermob = $params['usernumber'];
-      $APIKey = $params['username'];
-      $SecretKey = $params['password'];
-      $APIURL = "https://ws.sms.ir/";
+          $APIKey = $params['username'];
+          $SecretKey = $params['password'];
+          $APIURL = "https://ws.sms.ir/";
       $data = array(
           "ParameterArray" => array(
               array(
@@ -168,7 +168,7 @@ function vo_sendSms($params){
   
       $SmsIR_UltraFastSend = new SmsIR_UltraFastSend($APIKey, $SecretKey, $APIURL);
       $UltraFastSend = $SmsIR_UltraFastSend->ultraFastSend($data);
-      return $UltraFastSend;
+      return 'success';
     }catch(Exception $e) {
       return 'Message: ' .$e->getMessage();
     }
