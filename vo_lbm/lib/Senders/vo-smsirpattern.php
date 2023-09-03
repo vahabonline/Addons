@@ -1,61 +1,17 @@
-         
-                                         <?php
+<?php
 
-/**
- * UltraFastSend File Restful API PHP Sample Codes
- * 
- * PHP version 5.6.23 | 7.2.12
- * 
- * @category  PHPSampleCodes
- * @package   SampleCodes
- * @copyright 2018 The Ide Pardazan (ipe.ir) PHP Group. All rights reserved.
- * @license   https://sms.ir/ ipe license
- * @version   IPE: 2.0
- * @link      https://sms.ir/ Documentation of sms.ir Restful API PHP Sample Codes.
- */
-
-/**
- * UltraFastSend Class Restful API PHP Sample Codes
- * 
- * @category  PHPSampleCodesClass
- * @package   SampleCodesClass
- 
- * @copyright 2018 The Ide Pardazan (ipe.ir) PHP Group. All rights reserved.
- * @license   https://sms.ir/ ipe license
- * @link      https://sms.ir/ Documentation of sms.ir 
- */
 class SmsIR_UltraFastSend
 {
-
-    /**
-     * Gets API Ultra Fast Send Url.
-     *
-     * @return string Indicates the Url
-     */
     protected function getAPIUltraFastSendUrl() 
     {
         return "api/UltraFastSend";
     }
 
-    /**
-     * Gets Api Token Url.
-     *
-     * @return string Indicates the Url
-     */
     protected function getApiTokenUrl()
     {
         return "api/Token";
     }
 
-    /**
-     * Gets config parameters for sending request.
-     *
-     * @param string $APIKey    API Key
-     * @param string $SecretKey Secret Key
-     * @param string $APIURL    API URL
-     * 
-     * @return void
-     */
     public function __construct($APIKey, $SecretKey, $APIURL)
     {
         $this->APIKey = $APIKey;
@@ -63,13 +19,6 @@ class SmsIR_UltraFastSend
         $this->APIURL = $APIURL;
     }
 
-    /**
-     * Ultra Fast Send Message.
-     *
-     * @param data[] $data array structure of message data
-     * 
-     * @return string Indicates the sent sms result
-     */
     public function ultraFastSend($data) 
     {
         $token = $this->_getToken($this->APIKey, $this->SecretKey);
@@ -92,11 +41,6 @@ class SmsIR_UltraFastSend
         return $result;
     }
 
-    /**
-     * Gets token key for all web service requests.
-     *
-     * @return string Indicates the token key
-     */
     private function _getToken()
     {
         $postData = array(
@@ -137,15 +81,6 @@ class SmsIR_UltraFastSend
         return $resp;
     }
 
-    /**
-     * Executes the main method.
-     *
-     * @param postData[] $postData array of json data
-     * @param string     $url      url
-     * @param string     $token    token string
-     * 
-     * @return string Indicates the curl execute result
-     */
     private function _execute($postData, $url, $token)
     {
         $postString = json_encode($postData);
@@ -179,20 +114,16 @@ function SendMsg($params){
 			"ParameterArray" => array(
 				array(
 					"Parameter" => "code",
-					"ParameterValue" => $vars['sec_code']
+					"ParameterValue" => $params['sec_code']
 				)
 			),
 			"Mobile" => $params['mobile'],
-			"TemplateId" => $vars['otpid']
+			"TemplateId" => $params['otpid']
 		);
 
 		$SmsIR_UltraFastSend = new SmsIR_UltraFastSend($APIKey, $SecretKey, $APIURL);
-		return = $SmsIR_UltraFastSend->ultraFastSend($data);
+		return $SmsIR_UltraFastSend->ultraFastSend($data);
 	} catch (Exeption $e) {
 		return 'Error UltraFastSend : '.$e->getMessage();
 	}
 }
-
-
-
-?> 
