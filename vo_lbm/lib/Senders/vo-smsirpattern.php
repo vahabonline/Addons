@@ -105,7 +105,7 @@ class SmsIR_UltraFastSend
 }
 
 
-function SendMsg($params){
+function vo_sms_sending($params){
 	try {
 		$APIKey = $params['username'];
 		$SecretKey = $params['password'];
