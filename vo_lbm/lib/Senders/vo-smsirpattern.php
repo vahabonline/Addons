@@ -107,8 +107,8 @@ class SmsIR_UltraFastSend
 
 function vo_sms_sending($params){
 	try {
-		$APIKey = $params['username'];
-		$SecretKey = $params['password'];
+		$APIKey = $params['panel_username'];
+		$SecretKey = $params['panel_password'];
 		$APIURL = "https://ws.sms.ir/";
 		$data = array(
 			"ParameterArray" => array(
@@ -117,7 +117,7 @@ function vo_sms_sending($params){
 					"ParameterValue" => $params['sec_code']
 				)
 			),
-			"Mobile" => $params['mobile'],
+			"Mobile" => $params['sec_usernumber'],
 			"TemplateId" => $params['otpid']
 		);
 
