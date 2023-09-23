@@ -5,7 +5,7 @@
  * Mobile 09374655385 - 09118689448
  * Mail info@vahabonline.ir
  * -----
- * File: vo-smsir.php
+ * File: vo-smsirnew.php
  * Project: vo-senders
  * Version: <<projectversion>>
  * Created Date: Thursday May 7th 2020
@@ -71,9 +71,9 @@ function vo___REQ($method='POST',$req,$token,$data=''){
 }
 
 // اطلاعات ارسال کننده
-function info_smsir(){
+function info_smsirnew(){
     return array(
-        "name" => "smsir New",
+        "name" => "Sms IR New",
         "username_label" => "کلید وبسرویس",
         "password_label" => false,
 		"sendernumber_label" => "شماره ارسال کننده",
@@ -83,7 +83,7 @@ function info_smsir(){
 }
 
 // وضعیت اتصال
-function status_smsir($xapikey,$APIKey,$sender){
+function status_smsirnew($xapikey,$APIKey,$sender){
 	$req = vo___REQ('GET','credit',$xapikey);
 	if($req['status'] == '1'){
 		return true;
@@ -92,7 +92,7 @@ function status_smsir($xapikey,$APIKey,$sender){
 }
 
 // نمایش اعتبار پنل
-function balance_smsir($xapikey,$APIKey,$sender){
+function balance_smsirnew($xapikey,$APIKey,$sender){
 	$req = vo___REQ('GET','credit',$xapikey);
 	if($req['status'] == '1'){
 		return $req['data'];
@@ -101,7 +101,7 @@ function balance_smsir($xapikey,$APIKey,$sender){
 }
 
 // ارسال عادی
-function sending_default_smsir($xapikey,$APIKey,$LineNumber,$to,$txt){
+function sending_default_smsirnew($xapikey,$APIKey,$LineNumber,$to,$txt){
 	$data = '{
 		"lineNumber": '.$LineNumber.',
 		"messageText": "'.$txt.'",
@@ -112,7 +112,7 @@ function sending_default_smsir($xapikey,$APIKey,$LineNumber,$to,$txt){
 }
 
 // ارسال به صورت پترن
-function sending_pattern_smsir($xapikey,$password,$sender,$to,$pattern_code,$msg){
+function sending_pattern_smsirnew($xapikey,$password,$sender,$to,$pattern_code,$msg){
 	$patternss = json_decode($msg,true);
 	$paramtrs = '"parameters": [';
 	foreach($patternss as $name => $value){
