@@ -73,12 +73,12 @@ function vo___REQ($method='POST',$req,$token,$data=''){
 // اطلاعات ارسال کننده
 function info_smsir(){
     return array(
-        "name" => "smsir",
+        "name" => "smsir New",
         "username_label" => "کلید وبسرویس",
         "password_label" => false,
 		"sendernumber_label" => "شماره ارسال کننده",
-		"pattern_label" => false,
-        "pattern" => false,
+		"pattern_label" => true,
+        "pattern" => true,
     );
 }
 
