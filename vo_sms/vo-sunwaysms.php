@@ -17,6 +17,30 @@
  * Copyright (c) 2020 Your Company
  */
 
+function vo___vo__get_data($Data) {
+	$url = "https://sms.sunwaysms.com/smsws/HttpService?";
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url . $Data);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	$data = curl_exec($ch);
+	curl_close($ch);
+	return $data;
+}
+function vo___vo__SendArray($UserName, $Password, $RecipientNumber, $Message, $SpecialNumber, $IsFlash=false, $CheckingMessageID="") {
+	$Number = "";
+	$chkMessageID = "";
+	foreach ($RecipientNumber as $item) {
+		$Number = $Number . $item . ",";
+	}
+	foreach ($CheckingMessageID as $item) {
+		$chkMessageID = $chkMessageID . $item . ",";
+	}
+	 return vo___vo__get_data("service=SendArray&UserName=" . urlencode($UserName) . "&Password=" . urlencode($Password) . "&To=" . urlencode(rtrim($Number,",")) . "&Message=" . urlencode($Message) .
+	 "&From=" . urlencode($SpecialNumber) . "&Flash=" . urlencode(($IsFlash ? "true" : "false")) . "&chkMessageId=" . urlencode(rtrim($chkMessageID,",")));
+}
 
 // اطلاعات ارسال کننده
 function info_sunwaysms(){
@@ -36,39 +60,17 @@ function status_sunwaysms($user,$pass,$sender){
 }
 
 // نمایش اعتبار پنل
-function balance_sunwaysms($user,$pass,$sender){
-	$curl = curl_init();
-	curl_setopt_array($curl, array(
-	CURLOPT_URL => 'https://sms.sunwaysms.com/smsws/HttpService.ashx?service=GetCredit&username=%24UserName%24&password=%24Password%24',
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_ENCODING => '',
-	CURLOPT_MAXREDIRS => 10,
-	CURLOPT_TIMEOUT => 0,
-	CURLOPT_FOLLOWLOCATION => true,
-	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	CURLOPT_CUSTOMREQUEST => 'GET',
-	));
-	$response = curl_exec($curl);
-	curl_close($curl);
-	return $response;
+function balance_sunwaysms($UserName,Password,$sender){
+	return vo___vo__get_data("service=GetCredit&UserName=" . urlencode($UserName) . "&Password=" . urlencode($Password));
 }
 
 // ارسال عادی
-function sending_default_sunwaysms($field1,$field2,$field3,$to,$txt){
-	$curl = curl_init();
-	curl_setopt_array($curl, array(
-		CURLOPT_URL => "https://sms.sunwaysms.com/smsws/HttpService.ashx?service=SendArray&username={$field1}&password={$field2}&to={$to}&message={$txt}&from={$field3}",
-		CURLOPT_RETURNTRANSFER => true,
-		CURLOPT_ENCODING => '',
-		CURLOPT_MAXREDIRS => 10,
-		CURLOPT_TIMEOUT => 0,
-		CURLOPT_FOLLOWLOCATION => true,
-		CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-		CURLOPT_CUSTOMREQUEST => 'GET',
-	));
-	$response = curl_exec($curl);
-	curl_close($curl);
-	return $response;
+function sending_default_sunwaysms($UserName,$Password,$SpecialNumber,$to,$Message){
+	$mobile = explode(",",$to);
+	foreach($mobile as $number){
+		$RecipientNumber[] = mobilechk($number);
+	}
+	return vo___vo__SendArray($UserName, $Password, $RecipientNumber, $Message, $SpecialNumber)
 }
 
 // ارسال به صورت پترن
