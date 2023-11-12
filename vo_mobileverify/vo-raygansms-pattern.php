@@ -10,7 +10,7 @@ function vo_sendSms($params){
         http_build_query(
           array(
             'Username' => $params['usernumber'],
-            'Password  $params['password'],
+            'Password' => $params['password'],
             'Mobile' => $params['usernumber'],
             'Message' => $params['message']
           )));
