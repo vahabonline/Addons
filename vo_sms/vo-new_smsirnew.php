@@ -51,7 +51,7 @@ function vo__R_ptrn($apikey,$json){
 }
 
 // اطلاعات ارسال کننده
-function info_smsirnew(){
+function info_new_smsirnew(){
     return array(
         "name" => "NEW SMS.IR",
         "username_label" => "API-KEY",
@@ -63,23 +63,23 @@ function info_smsirnew(){
 }
 
 // وضعیت اتصال
-function status_smsirnew($xapikey,$APIKey,$sender){
+function status_new_smsirnew($xapikey,$APIKey,$sender){
 	return true;
 }
 
 // نمایش اعتبار پنل
-function balance_smsirnew($xapikey,$APIKey,$sender){
+function balance_new_smsirnew($xapikey,$APIKey,$sender){
 	return false;
 }
 
 // ارسال عادی
-function sending_default_smsirnew($xapikey,$APIKey,$from,$to,$txt){
+function sending_default_new_smsirnew($xapikey,$APIKey,$from,$to,$txt){
 	$req = vo__R_send($xapikey,$to,$from,$txt);
 	return json_encode($req);
 }
 
 // ارسال به صورت پترن
-function sending_pattern_smsirnew($xapikey,$APIKey,$sender,$to,$pattern_code,$msg){
+function sending_pattern_new_smsirnew($xapikey,$APIKey,$sender,$to,$pattern_code,$msg){
 	$patternss = json_decode($msg,true);
 	$json = "{";
 	$json .= '"mobile": "'.$to.'",';
