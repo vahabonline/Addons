@@ -1,5 +1,5 @@
 <?php
-vo_sendSms($params){
+function vo_sendSms($params){
 	$url = 'https://sms.magfa.com/api/soap/sms/v1/server?wsdl';
 	$options = [
 		'login' => $params['username'], 'password' => $params['password'], // -Credientials
