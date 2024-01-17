@@ -105,17 +105,12 @@ function sending_default_ippanel($field1,$field2,$field3,$to,$txt){
 }
 
 // ارسال به صورت پترن
-function sending_pattern_ippanel($username,$password,$sender,$to,$pattern_code,$msg){
+function sending_pattern_ippanel($username,$password,$fromNum,$to,$pattern_code,$msg){
 	$mobile = explode(",",$to);
 	foreach($mobile as $number){
 		$numbersend[] = mobilechk($number);
 	}
-	$input_data = json_decode($msg);
-	$url = "https://ippanel.com/patterns/pattern?username=" . $username . "&password=" . urlencode($password) . "&from=$sender&to=" . json_encode($numbersend) . "&input_data=" . urlencode(json_encode($input_data)) . "&pattern_code=$pattern_code";
-	$handler = curl_init($url);
-	curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
-	curl_setopt($handler, CURLOPT_POSTFIELDS, $input_data);
-	curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
-	$response = curl_exec($handler);
-	return $response;
+	$input_data = json_decode($msg, true);
+	$client = new SoapClient("http://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+	return $client->sendPatternSms($fromNum,$numbersend,$username,$password,$pattern_code,$input_data);
 }
