@@ -8,7 +8,7 @@ function vo_sendSms($params){
 	
 
 	//call soap client
-	$soap=new SoapClient("http://yourdomain.ir/webservice/send.php?wsdl");
+	$soap=new SoapClient("http://payammatni.com/webservice/send.php?wsdl");
 
 	//SendSMS
 	$soap->Username=$username;
@@ -18,5 +18,11 @@ function vo_sendSms($params){
 	$soap->Content = $message;
 	$soap->Type = '0';
 
-	return $soap->SendSMS($soap->fromNum,$soap->toNum,$soap->Content,$soap->Type,$soap->Username,$soap->Password);
+	$res = $soap->SendSMS($soap->fromNum,$soap->toNum,$soap->Content,$soap->Type,$soap->Username,$soap->Password);
+	$params['status'] = false;
+	if(strlen($res[0]) > 5){
+	    $params['status'] = true;
+	}
+	$params['result'] = $res;
+	return $params;
 }
