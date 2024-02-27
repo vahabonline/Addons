@@ -102,12 +102,17 @@ function balance_smsirnew($xapikey,$APIKey,$sender){
 
 // ارسال عادی
 function sending_default_smsirnew($xapikey,$APIKey,$LineNumber,$to,$txt){
+	/*
 	$data = '{
 		"lineNumber": '.$LineNumber.',
 		"messageText": "'.$txt.'",
 		"mobiles": ['.$to.']
 	}';
-	$req = vo___REQ('POST','send/bulk',$xapikey,$data);
+	*/
+	$post['lineNumber'] = $LineNumber;
+	$post['messageText'] = $txt;
+	$post['mobiles'] = [$to];
+	$req = vo___REQ('POST','send/bulk',$xapikey,json_encode($post));
 	return json_encode($req);
 }
 
