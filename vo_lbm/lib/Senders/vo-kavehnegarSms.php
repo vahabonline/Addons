@@ -17,5 +17,9 @@ function vo_sms_sending($vars){
   ));
   $response = curl_exec($curl);
   curl_close($curl);
+  $json = json_decode($response, true);
+  if($json['return']['status'] == '200'){
+	  return 'success';
+  }
   return $response;
 }
