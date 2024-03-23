@@ -1,4 +1,5 @@
 <?php
+function vo_sms_sending($vars){
   $curl = curl_init();
   curl_setopt_array($curl, array(
     CURLOPT_URL => 'http://api.kavenegar.com/v1/'.$vars['panel_username'].'/sms/send.json',
