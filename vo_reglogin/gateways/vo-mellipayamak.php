@@ -17,5 +17,12 @@ function vo_sendSms($params){
 		"text"	=>	$message,
 		"isflash"	=>	false
 	);
-	return $sms->SendSimpleSMS($data)->SendSimpleSMSResult;
+	$res = $sms->SendSimpleSMS($data)->SendSimpleSMSResult;
+
+	$params['status'] = false;
+	if(!empty($res) || is_null($res)){
+        	$params['status'] = true;
+    	}
+    	$params['result'] = $res;
+	return $params;
 }
