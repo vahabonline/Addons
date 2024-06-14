@@ -18,7 +18,7 @@
  */
 
 
-function vo___REQ($method='POST',$req,$token,$data=''){
+function vo___REQ($method='POST',$req,$token,$data=array()){
 	if($method == 'POST'){
 		try{
 			$curl = curl_init();
@@ -31,7 +31,7 @@ function vo___REQ($method='POST',$req,$token,$data=''){
 				CURLOPT_FOLLOWLOCATION => true,
 				CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 				CURLOPT_CUSTOMREQUEST => 'POST',
-				CURLOPT_POSTFIELDS =>$data,
+				CURLOPT_POSTFIELDS => json_encode($data),
 				CURLOPT_HTTPHEADER => array(
 					'ACCEPT: application/json',
 					'X-API-KEY: ' . $token,
@@ -102,36 +102,26 @@ function balance_smsirnew($xapikey,$APIKey,$sender){
 
 // ارسال عادی
 function sending_default_smsirnew($xapikey,$APIKey,$LineNumber,$to,$txt){
-	/*
-	$data = '{
-		"lineNumber": '.$LineNumber.',
-		"messageText": "'.$txt.'",
-		"mobiles": ['.$to.']
-	}';
-	*/
 	$post['lineNumber'] = $LineNumber;
 	$post['messageText'] = $txt;
-	$post['mobiles'] = [$to];
-	$req = vo___REQ('POST','send/bulk',$xapikey,json_encode($post));
+	$post['mobiles'][] = [$to];
+	$req = vo___REQ('POST','send/bulk',$xapikey,$post);
 	return json_encode($req);
 }
 
 // ارسال به صورت پترن
 function sending_pattern_smsirnew($xapikey,$password,$sender,$to,$pattern_code,$msg){
 	$patternss = json_decode($msg,true);
-	$paramtrs = '"parameters": [';
+	
+	$json = [];
+	$json['mobile'] = $to;
+	$json['templateId'] = $pattern_code;
 	foreach($patternss as $name => $value){
-		$paramtrs .= '{
-			"name": "'.$name.'",
-			"value": "'.$value.'"
-		},';
+		$json['parameters'][] = [
+			'name' => $name,
+			'value' => $value
+		]
 	}
-	$paramtrs .= ']';
-	$data = '{
-		"mobile": "'.$to.'",
-		"templateId": '.$pattern_code.',
-		'.$paramtrs.'
-	}';
-	$req = vo___REQ('POST','send/verify',$xapikey,$data);
+	$req = vo___REQ('POST','send/verify',$xapikey,$json);
 	return json_encode($req);
 }
