@@ -120,7 +120,7 @@ function sending_pattern_smsirnew($xapikey,$password,$sender,$to,$pattern_code,$
 		$json['parameters'][] = [
 			'name' => $name,
 			'value' => $value
-		]
+		];
 	}
 	$req = vo___REQ('POST','send/verify',$xapikey,$json);
 	return json_encode($req);
