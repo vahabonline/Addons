@@ -76,8 +76,8 @@ function info_smsirnew(){
         "name" => "Sms IR New",
         "username_label" => "کلید وبسرویس",
         "password_label" => false,
-		"sendernumber_label" => "شماره ارسال کننده",
-		"pattern_label" => true,
+	"sendernumber_label" => "شماره ارسال کننده",
+	"pattern_label" => true,
         "pattern" => true,
     );
 }
@@ -104,7 +104,7 @@ function balance_smsirnew($xapikey,$APIKey,$sender){
 function sending_default_smsirnew($xapikey,$APIKey,$LineNumber,$to,$txt){
 	$post['lineNumber'] = $LineNumber;
 	$post['messageText'] = $txt;
-	$post['mobiles'][] = [$to];
+	$post['mobiles'][] = $to;
 	$req = vo___REQ('POST','send/bulk',$xapikey,$post);
 	return json_encode($req);
 }
