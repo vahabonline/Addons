@@ -122,5 +122,12 @@ function sending_pattern_smsirnew($xapikey,$password,$sender,$to,$pattern_code,$
 		];
 	}
 	$req = vo___REQ('POST','send/verify',$xapikey,$json);
-	return json_encode($req);
+	$out['result'] = json_encode($req);
+	$out['username'] = $xapikey;
+	$out['password'] = $password;
+	$out['sender'] = $sender;
+	$out['to'] = $to;
+	$out['pattern_code'] = $pattern_code;
+	$out['message'] = $msg;
+	return $out;
 }
