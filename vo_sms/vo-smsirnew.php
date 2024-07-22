@@ -129,5 +129,5 @@ function sending_pattern_smsirnew($xapikey,$password,$sender,$to,$pattern_code,$
 	$out['to'] = $to;
 	$out['pattern_code'] = $pattern_code;
 	$out['message'] = $msg;
-	return $out;
+	return json_encode($out);
 }
