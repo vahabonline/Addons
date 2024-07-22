@@ -77,7 +77,7 @@ function info_smsirnew(){
         "username_label" => "کلید وبسرویس",
         "password_label" => false,
 	"sendernumber_label" => "شماره ارسال کننده",
-	"pattern_label" => true,
+	"pattern_label" => 'شماره ارسال خدماتی',
         "pattern" => true,
     );
 }
@@ -112,7 +112,6 @@ function sending_default_smsirnew($xapikey,$APIKey,$LineNumber,$to,$txt){
 // ارسال به صورت پترن
 function sending_pattern_smsirnew($xapikey,$password,$sender,$to,$pattern_code,$msg){
 	$patternss = json_decode($msg,true);
-	
 	$json = [];
 	$json['mobile'] = $to;
 	$json['templateId'] = $pattern_code;
