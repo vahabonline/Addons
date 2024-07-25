@@ -24,6 +24,6 @@ function vo_sendSms($params){
 	if($result['status']['code'] == '200'){
         return 'success';
     }else{
-        return response;
+        return $response;
     }
 }
