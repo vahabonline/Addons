@@ -2,9 +2,10 @@
 
 function vo_sendSms($params){
 	$apiKey = $params['password'];
+	$url = "https://api.sabanovin.com/v1/".$apiKey."/sms/send.json";
     $curl = curl_init();
 	curl_setopt_array($curl, array(
-		CURLOPT_URL => "https://api.sabanovin.com/v1/{$apiKey}/sms/send.json",
+		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
@@ -14,16 +15,11 @@ function vo_sendSms($params){
 		CURLOPT_CUSTOMREQUEST => 'POST',
 		CURLOPT_POSTFIELDS => array(
 			'gateway' => $params['formnumber'],
-			'to' => $params['mobile'],
+			'to' => $params['usernumber'],
 			'text' => $params['message']
 		),
 	));
 	$response = curl_exec($curl);
 	curl_close($curl);
-	$result = json_decode($response, true);
-	if($result['status']['code'] == '200'){
-        return 'success';
-    }else{
-        return $response;
-    }
+	return $response;
 }
