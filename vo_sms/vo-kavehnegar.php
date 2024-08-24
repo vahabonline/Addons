@@ -59,7 +59,7 @@ function sending_default_kavehnegar($apiKey,$pass,$fromnumber,$usermobile,$messa
 	try{
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
-		CURLOPT_URL => "https://api.kavenegar.com/v1/{$apiKey}/sms/send.json?receptor={$usermobile}&sender={$fromnumber}&message={$message}",
+		CURLOPT_URL => "https://api.kavenegar.com/v1/{$apiKey}/sms/send.json?receptor={$usermobile}&sender={$fromnumber}&message=" . urlencode($message),
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_ENCODING => '',
 		CURLOPT_MAXREDIRS => 10,
