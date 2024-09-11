@@ -6,7 +6,7 @@ function vo_sendSms($params){
         'pass'=>$params['password'],
         'from'=>$params['formnumber'],
         'message'=>$params['message'],
-        'to'=>array($params['usernumber']),
+        'to'=>json_encode(array($params['usernumber'])),
         'op'=>'send'
     );
     $handler = curl_init($url);
@@ -16,9 +16,5 @@ function vo_sendSms($params){
     $result = curl_exec($handler);
     $response = json_decode($result);
     $res_code = $response[0];
-    if($res_code == '0'){
-        return 'success';
-    }else{
-        return $result;
-    }
+    return $result;
 }
