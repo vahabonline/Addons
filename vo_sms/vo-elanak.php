@@ -40,11 +40,15 @@ function status_elanak($user,$pass,$sender){
 
 // نمایش اعتبار پنل
 function balance_elanak($user,$pass,$sender){
-	$soap=new SoapClient("https://panel.elanak.ir//webservice/send.php?wsdl");
-	//GetCredit
-	$soap->Username=$user;
-	$soap->Password=$pass;
-	return $soap->GetCredit($soap->Username,$soap->Password);
+	try {
+		$soap=new SoapClient("https://panel.elanak.ir//webservice/send.php?wsdl");
+		//GetCredit
+		$soap->Username=$user;
+		$soap->Password=$pass;
+		return $soap->GetCredit($soap->Username,$soap->Password);
+	}catch (Exception $exception){
+		return false;
+	}
 }
 
 // ارسال عادی
