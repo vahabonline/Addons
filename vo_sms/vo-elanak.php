@@ -45,7 +45,9 @@ function balance_elanak($user,$pass,$sender){
 		//GetCredit
 		$soap->Username=$user;
 		$soap->Password=$pass;
-		return $soap->GetCredit($soap->Username,$soap->Password);
+		$result = $soap->GetCredit($soap->Username,$soap->Password);
+		$result = json_decode(json_encode($result), true);
+		return intval($result['Return']);
 	}catch (Exception $exception){
 		return false;
 	}
