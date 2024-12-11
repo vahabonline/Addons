@@ -25,7 +25,7 @@ function info_melipayamak(){
         "username_label" => "نام کاربری",
         "password_label" => "رمز عبور",
         "sendernumber_label" => "شماره ارسال کننده",
-        "pattern_label" => false,
+        "pattern_label" => 'شماره ارسال کننده خدماتی',
         "pattern" => true,
     );
 }
