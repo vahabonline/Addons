@@ -1,5 +1,20 @@
 <?php
+
+function vo_reglogin_validatePhoneNumber($phoneNumber) {
+    $pattern = '/^(09|\+989|989)\d{9,11}$/';
+    if (preg_match($pattern, $phoneNumber)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function vo_sendSms($params){
+	if(vo_reglogin_validatePhoneNumber($params['usermobile']) === false){
+        	$params['status'] = false;
+		$params['result'] = 'The number must be between 11 and 13 characters.';
+    		return $params;
+	}
 	$url = "https://ippanel.com/services.jspd";
 	$usermobile = [$params['usermobile']];
 	$param = array(
