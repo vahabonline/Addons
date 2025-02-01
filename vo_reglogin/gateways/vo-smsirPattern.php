@@ -1,4 +1,13 @@
 <?php
+/*
+{
+  "otpid": "111111",
+  "otpbody": {
+    "name": "YourPatternName",
+    "value": "<-OTP->"
+  }
+}
+*/
 function vo_sendSms($params){
 	try{
 		$input_data = json_decode($msg);
