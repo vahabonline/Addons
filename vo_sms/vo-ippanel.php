@@ -68,7 +68,7 @@ function balance_ippanel($user,$pass,$sender){
 	curl_setopt($handler, CURLOPT_POSTFIELDS, $param);                       
 	curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
 	$response2 = curl_exec($handler);
-	$response2 = json_decode($response2);
+	$response2 = json_decode($response2, true);
 	$res_code = $response2[0];
 	$res_data = $response2[1];
 	
@@ -97,7 +97,7 @@ function sending_default_ippanel($field1,$field2,$field3,$to,$txt){
 		curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
 		$response2 = curl_exec($handler);
 		
-		$response2 = json_decode($response2);
+		$response2 = json_decode($response2, true);
 		$res_code = $response2[0];
 		$res_data = $response2[1];
 		
