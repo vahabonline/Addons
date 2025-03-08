@@ -90,6 +90,5 @@ function sending_pattern_limosms($username,$password,$fromNum,$to,$pattern_code,
 	$return = curl_exec( $process);
 	$httpcode = curl_getinfo( $process, CURLINFO_HTTP_CODE);
 	curl_close($process);
-	$decoded = json_decode($return);
-	return $decoded;
+	return $return;
 }
