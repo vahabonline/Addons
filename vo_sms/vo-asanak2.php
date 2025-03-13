@@ -1,5 +1,5 @@
 <?php
-function info_asanak()
+function info_asanak2()
 {
     return array(
         "name" => "Asanak",
@@ -11,7 +11,7 @@ function info_asanak()
     );
 }
 
-function status_asanak($user='', $pass='', $sender='')
+function status_asanak2($user='', $pass='', $sender='')
 {
     if ($user && $pass && $sender) {
         return true;
@@ -20,12 +20,12 @@ function status_asanak($user='', $pass='', $sender='')
     }
 }
 
-function balance_asanak($user='', $pass='', $sender='')
+function balance_asanak2($user='', $pass='', $sender='')
 {
     return false;
 }
 
-function sending_default_asanak($user, $pass, $from, $to, $message)
+function sending_default_asanak2($user, $pass, $from, $to, $message)
 {
     $curl = curl_init();
 
@@ -49,7 +49,7 @@ function sending_default_asanak($user, $pass, $from, $to, $message)
     return $response;
 }
 
-function sending_pattern_asanak($username, $password, $fromNum, $to, $pattern_code, $msg)
+function sending_pattern_asanak2($username, $password, $fromNum, $to, $pattern_code, $msg)
 {
     return false;
 }
