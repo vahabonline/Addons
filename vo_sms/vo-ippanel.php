@@ -112,5 +112,7 @@ function sending_pattern_ippanel($username,$password,$fromNum,$to,$pattern_code,
 	}
 	$input_data = json_decode($msg, true);
 	$client = new SoapClient("http://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
-	return $client->sendPatternSms($fromNum,$numbersend,$username,$password,$pattern_code,$input_data);
+	$result = $client->sendPatternSms($fromNum,$numbersend,$username,$password,$pattern_code,$input_data);
+	$result = json_decode($result, true);
+	return $result;
 }
