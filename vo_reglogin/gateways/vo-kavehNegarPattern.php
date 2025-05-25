@@ -1,18 +1,18 @@
 <?php
-function vo_sendSms($vars){
-	$input_data = json_decode($msg);
-    	$otpMsg = json_decode($params['message']);
-    	$otpBody = $otpMsg['otpbody'];
-    	$otpID = $otpMsg['otpid'];
-    	$otpName = $otpMsg['otpName'];
-	$username = $params['username'];
-    	$password = $params['password'];
-    	$from = $params['sendernumber'];
-    	$usermobile = $params['usermobile'];
-
+function vo_sendSms($params){
+    $username = $params['username'];
+	$password = $params['password'];
+	$token = $params['token'];
+	$usermobile = $params['usermobile'];
+	$otpMsg = json_decode($params['message']);
+    $otpBody = $otpMsg->otpCode;
+    $otpID = $otpMsg->otpid;
+    $otpName = $otpMsg->otpName;
+    $from = $params['sendernumber'];
+    	
 	  $curl = curl_init();
 	  curl_setopt_array($curl, array(
-	    	CURLOPT_URL => 'http://api.kavenegar.com/v1/'.$username.'/verify/lookup.json',
+	    	CURLOPT_URL => 'http://api.kavenegar.com/v1/'.$token.'/verify/lookup.json',
 	    	CURLOPT_RETURNTRANSFER => true,
 	    	CURLOPT_ENCODING => '',
 	    	CURLOPT_MAXREDIRS => 10,
